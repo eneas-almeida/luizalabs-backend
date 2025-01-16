@@ -1,0 +1,8 @@
+{
+    "name": "luizalabs",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:eneas-almeida/luizalabs-backend.git",
+    "author": "eneas <eneas.eng@yahoo.com>",
+    "license": "MIT"
+}
