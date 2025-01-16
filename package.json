@@ -22,5 +22,8 @@
         "reflect-metadata": "^0.2.2",
         "uuid": "^11.0.5",
         "youch": "^3.3.4"
+    },
+    "scripts": {
+        "dev": "set API_AMBIENT=development && nodemon --inspect ./src/app.js"
     }
 }
