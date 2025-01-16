@@ -1,0 +1,21 @@
+const { AxiosHttpClientProvider } = require('../../../infra/providers/http');
+
+class FakestoreProductIntegration {
+    /**
+     * @param {AxiosHttpClientProvider} httpClient
+     */
+    constructor(httpClient) {
+        this._axiosRetry = httpClient.axiosRetry;
+    }
+
+    async getProducts() {
+        try {
+            const res = await this._axiosRetry.get('https://fakestoreapi.com/products');
+            return res.data;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+}
+
+module.exports = { FakestoreProductIntegration };
