@@ -12,21 +12,19 @@ const AGENTKEEPALIVE_OPTIONS = {
 const AXIOS_RETRY_ATTEMPTS = 3;
 
 class AxiosHttpClientProvider {
-    getInstances() {
-        return {
-            axios: this._createAxiosInstance(),
-            axiosRetry: this._createAxiosInstanceWithRetry(),
-        };
+    constructor() {
+        this.axios = this._createAxiosInstance();
+        this.axiosRetry = this._createAxiosInstanceWithRetry();
     }
 
     _createAxiosInstance() {
         const axiosInstance = axios.create({
             timeout: 20000,
-            httpsAgent: new HttpsAgent(AGENTKEEPALIVE_OPTIONS),
+            // httpsAgent: new HttpsAgent(AGENTKEEPALIVE_OPTIONS),
         });
 
-        this._addRequestInterceptor(axiosInstance);
-        this._addResponseInterceptor(axiosInstance);
+        // this._addRequestInterceptor(axiosInstance);
+        // this._addResponseInterceptor(axiosInstance);
 
         return axiosInstance;
     }
@@ -52,11 +50,12 @@ class AxiosHttpClientProvider {
 
     _createAxiosInstanceWithRetry() {
         const axiosInstance = this._createAxiosInstance();
-        axiosRetry(axiosInstance, {
-            retries: AXIOS_RETRY_ATTEMPTS,
-            retryDelay: axiosRetry.exponentialDelay,
-            shouldResetTimeout: true,
-        });
+
+        // axiosRetry(axiosInstance, {
+        //     retries: AXIOS_RETRY_ATTEMPTS,
+        //     retryDelay: axiosRetry.exponentialDelay,
+        //     shouldResetTimeout: true,
+        // });
 
         return axiosInstance;
     }
