@@ -23,6 +23,10 @@ const envs = {
         password: env.MONGODB_PASSWORD,
         name: env.MONGODB_NAME,
     },
+    jwt: {
+        secret: env.JWT_SECRET,
+        expirationIn: env.JWT_EXPIRES_IN,
+    },
 };
 
 const check = () => {};
