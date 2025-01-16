@@ -1,13 +1,19 @@
 const { AccountsRepository } = require('../../infra/db/repositories/accounts.repository');
+const { BcryptHashProvider } = require('../../infra/providers/hash');
+const { JwtTokenProvider } = require('../../infra/providers/token');
 const { LoginAccountDto } = require('./dtos/login-account.dto');
 const { AppError } = require('../../main/errors');
 
 class LoginAccountUsecase {
     /**
      * @param {AccountsRepository} accountsRepository
+     * @param {BcryptHashProvider} hashProvider
+     * @param {JwtTokenProvider} tokenProvider
      */
-    constructor(accountsRepository) {
-        this.accountsRepository = accountsRepository;
+    constructor(accountsRepository, hashProvider, tokenProvider) {
+        this._accountsRepository = accountsRepository;
+        this._hashProvider = hashProvider;
+        this._tokenProvider = tokenProvider;
     }
 
     /**
@@ -22,11 +28,29 @@ class LoginAccountUsecase {
 
             const { email, password } = loginAccountDto;
 
-            const existsAccount = this.accountsRepository.findOneByEmail(email);
+            const existsAccount = this._accountsRepository.findOneByEmail(email);
 
             if (!existsAccount) {
-                throw new AppError('Account not found', 404);
+                throw new AppError('Invalid email or password', 401);
             }
+
+            const isValidPassword = await this._hashProvider.compare(
+                password,
+                existsAccount.password
+            );
+
+            if (!isValidPassword) {
+                throw new AppError('Invalid email or password', 401);
+            }
+
+            const tokenGenerated = this._tokenProvider.generate({
+                email: existsAccount.email,
+            });
+
+            return {
+                token: tokenGenerated,
+                message: 'Login successfully',
+            };
         } catch (error) {
             throw error;
         }

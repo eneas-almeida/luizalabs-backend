@@ -1,4 +1,5 @@
 const { AccountsRepository } = require('../../infra/db/repositories/accounts.repository');
+const { BcryptHashProvider } = require('../../infra/providers/hash');
 const { CreateAccountDto } = require('./dtos/create-account.dto');
 const { AppError } = require('../../main/errors');
 const { Account } = require('../../domain/account');
@@ -6,10 +7,11 @@ const { Account } = require('../../domain/account');
 class CreateAccountUsecase {
     /**
      * @param {AccountsRepository} accountsRepository
+     * @param {BcryptHashProvider} hashProvider
      */
-    constructor(accountsRepository) {
-        this._injectionsValidate(accountsRepository);
-        this.accountsRepository = accountsRepository;
+    constructor(accountsRepository, hashProvider) {
+        this._accountsRepository = accountsRepository;
+        this._hashProvider = hashProvider;
     }
 
     /**
@@ -22,7 +24,7 @@ class CreateAccountUsecase {
                 throw new AppError('Invalid dto', 412);
             }
 
-            const existsAccount = this.accountsRepository.findOneByEmail(
+            const existsAccount = this._accountsRepository.findOneByEmail(
                 createAccountDto.email
             );
 
@@ -32,18 +34,13 @@ class CreateAccountUsecase {
 
             const { name, email, password } = createAccountDto;
 
-            const account = new Account(name, email, password);
+            const hashedPassword = await this._hashProvider.generate(password);
 
-            await this.accountsRepository.create(account);
+            const account = new Account(name, email, hashedPassword);
+
+            await this._accountsRepository.create(account);
         } catch (error) {
             throw error;
-        }
-    }
-
-    // Method to validate the injections
-    _injectionsValidate(accountsRepository) {
-        if (!accountsRepository) {
-            throw new Error('Invalid repository accountsRepository instance');
         }
     }
 }
