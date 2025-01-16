@@ -15,4 +15,10 @@ git clone https://github.com/eneas-almeida/luizalabs-backend
 
 # Acessa a pasta do repositório clonado
 cd luizalabs-backend
+
+# Renomeia o arquivo .env-example
+mv .env-example .env
+
+# Sobe os containers do postgres e mongodb
+docker-compose up -d
 ```

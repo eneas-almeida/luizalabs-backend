@@ -4,5 +4,23 @@
     "main": "index.js",
     "repository": "git@github.com:eneas-almeida/luizalabs-backend.git",
     "author": "eneas <eneas.eng@yahoo.com>",
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "nodemon": "^3.1.9"
+    },
+    "dependencies": {
+        "agentkeepalive": "^4.6.0",
+        "axios": "^1.7.9",
+        "axios-retry": "^4.5.0",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "express-async-errors": "^3.1.1",
+        "helmet": "^8.0.0",
+        "mongoose": "^8.9.5",
+        "morgan": "^1.10.0",
+        "reflect-metadata": "^0.2.2",
+        "uuid": "^11.0.5",
+        "youch": "^3.3.4"
+    }
 }
