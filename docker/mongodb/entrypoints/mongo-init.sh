@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mongo -- "$MONGODB_DB_NAME" <<EOF
-    var database = '$MONGODB_DB_NAME';
+mongo -- "$MONGODB_NAME" <<EOF
+    var database = '$MONGODB_NAME';
     var user = '$MONGODB_USER';
     var password = '$MONGODB_PASSWORD';
 

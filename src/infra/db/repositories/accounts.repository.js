@@ -1,11 +1,12 @@
 const { Account } = require('../../../domain/account');
+const { AccountsModelSchema } = require('../schemas');
 
 class AccountsRepository {
     /**
      * @param {Account} account
      */
     async create(account) {
-        return account;
+        return AccountsModelSchema.create(account);
     }
 
     /**
