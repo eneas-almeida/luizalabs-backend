@@ -4,7 +4,7 @@ const {
     UpdateFavoriteController,
     ListFavoritesController,
     ViewFavoriteController,
-} = require('../../controllers/favorites');
+} = require('../../../controllers/favorites');
 
 const {
     CreateFavoriteUsecase,
@@ -12,9 +12,9 @@ const {
     UpdateFavoriteUsecase,
     ListFavoritesUsecase,
     ViewFavoriteUsecase,
-} = require('../../usecases/favorites');
+} = require('../../../usecases/favorites');
 
-const { FavoritesRepository } = require('../../infra/db/repositories');
+const { FavoritesRepository } = require('../../../infra/db/repositories');
 const favoritesRepository = new FavoritesRepository();
 
 class FavoritesControllerFactory {

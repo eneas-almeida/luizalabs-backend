@@ -28,28 +28,32 @@ class LoginAccountUsecase {
 
             const { email, password } = loginAccountDto;
 
-            const existsAccount = this._accountsRepository.findOneByEmail(email);
+            const account = await this._accountsRepository.findOneByEmail(email);
 
-            if (!existsAccount) {
-                throw new AppError('Invalid email or password', 401);
+            if (!account) {
+                throw new AppError('Invalid email or password', 401, {
+                    error: 'invalidEmailOrPassword',
+                });
             }
 
             const isValidPassword = await this._hashProvider.compare(
                 password,
-                existsAccount.password
+                account.password
             );
 
             if (!isValidPassword) {
-                throw new AppError('Invalid email or password', 401);
+                throw new AppError('Invalid email or password', 401, {
+                    error: 'invalidEmailOrPassword',
+                });
             }
 
-            const tokenGenerated = this._tokenProvider.generate({
-                email: existsAccount.email,
+            const tokenGenerated = await this._tokenProvider.generate({
+                id: account.id,
+                email: account.email,
             });
 
             return {
                 token: tokenGenerated,
-                message: 'Login successfully',
             };
         } catch (error) {
             throw error;

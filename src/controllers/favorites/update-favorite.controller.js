@@ -13,7 +13,11 @@ class UpdateFavoriteController {
 
     async handle(req, res) {
         try {
-            const updateFavoriteDto = new UpdateFavoriteDto(req.body);
+            const updateFavoriteDto = new UpdateFavoriteDto(
+                req.body,
+                req.params.id,
+                req.auth.id
+            );
 
             await this._updateFavoriteUsecase.execute(updateFavoriteDto);
 
@@ -21,9 +25,11 @@ class UpdateFavoriteController {
                 message: 'Favorite updated successfully',
             });
         } catch (error) {
-            const { message, statusCode } = error;
+            const { message, statusCode, metadata } = error;
 
-            return res.status(statusCode).json({ statusCode, message });
+            return res
+                .status(statusCode || 400)
+                .json({ statusCode: statusCode || 400, message, metadata });
         }
     }
 }

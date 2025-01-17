@@ -2,25 +2,26 @@ const { ListFavoritesUsecase } = require('../../usecases/favorites');
 
 class ListFavoritesController {
     /**
-     * @param {ListFavoritesUsecase} viewFavoriteUsecase
+     * @param {ListFavoritesUsecase} listFavoritesUsecase
      */
-    constructor(viewFavoriteUsecase) {
-        this._viewFavoriteUsecase = viewFavoriteUsecase;
+    constructor(listFavoritesUsecase) {
+        this._listFavoritesUsecase = listFavoritesUsecase;
     }
 
     async handle(req, res) {
         try {
-            const { id } = req.params;
-
-            await this._viewFavoriteUsecase.execute(id);
+            const data = await this._listFavoritesUsecase.execute(req.auth.id);
 
             return res.status(200).json({
                 message: 'Favorite listed successfully',
+                data,
             });
         } catch (error) {
-            const { message, statusCode } = error;
+            const { message, statusCode, metadata } = error;
 
-            return res.status(statusCode).json({ statusCode, message });
+            return res
+                .status(statusCode || 400)
+                .json({ statusCode: statusCode || 400, message, metadata });
         }
     }
 }

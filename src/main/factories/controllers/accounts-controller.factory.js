@@ -1,11 +1,14 @@
 const {
     CreateAccountController,
     LoginAccountController,
-} = require('../../controllers/accounts');
-const { CreateAccountUsecase, LoginAccountUsecase } = require('../../usecases/accounts');
-const { AccountsRepository } = require('../../infra/db/repositories');
-const { BcryptHashProvider } = require('../../infra/providers/hash');
-const { JwtTokenProvider } = require('../../infra/providers/token');
+} = require('../../../controllers/accounts');
+const {
+    CreateAccountUsecase,
+    LoginAccountUsecase,
+} = require('../../../usecases/accounts');
+const { AccountsRepository } = require('../../../infra/db/repositories');
+const { BcryptHashProvider } = require('../../../infra/providers/hash');
+const { JwtTokenProvider } = require('../../../infra/providers/token');
 
 const accountsRepository = new AccountsRepository();
 const hashProvider = new BcryptHashProvider();

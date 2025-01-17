@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const FavoritesSchema = new mongoose.Schema(
     {
+        id: String,
         title: String,
         description: String,
         accountId: String,
@@ -12,6 +13,7 @@ const FavoritesSchema = new mongoose.Schema(
     { autoIndex: false }
 );
 
+FavoritesSchema.index({ id: 1 });
 FavoritesSchema.index({ title: 1 });
 FavoritesSchema.index({ accountId: 1 });
 FavoritesSchema.index({ createdAt: 1 });
