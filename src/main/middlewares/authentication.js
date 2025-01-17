@@ -27,7 +27,6 @@ module.exports = async (req, _res, next) => {
     }
 
     try {
-        console.log(await JwtTokenProvider.verify(token));
         req.auth = await JwtTokenProvider.verify(token);
     } catch (_error) {
         throw new AppError('Token not validated', 403, {
