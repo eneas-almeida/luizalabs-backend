@@ -3,6 +3,7 @@ const { DeleteFavoriteUsecase } = require('./delete-favorite.usecase');
 const { UpdateFavoriteUsecase } = require('./update-favorite.usecase');
 const { ListFavoritesUsecase } = require('./list-favorites.usecase');
 const { ViewFavoriteUsecase } = require('./view-favorite.usecase');
+const { ManagerProductFavoriteUsecase } = require('./manager-product-favorite.usecase');
 
 module.exports = {
     CreateFavoriteUsecase,
@@ -10,4 +11,5 @@ module.exports = {
     UpdateFavoriteUsecase,
     ListFavoritesUsecase,
     ViewFavoriteUsecase,
+    ManagerProductFavoriteUsecase,
 };
