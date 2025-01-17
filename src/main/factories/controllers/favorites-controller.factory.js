@@ -4,6 +4,7 @@ const {
     UpdateFavoriteController,
     ListFavoritesController,
     ViewFavoriteController,
+    ManagerProductFavoriteController,
 } = require('../../../controllers/favorites');
 
 const {
@@ -12,6 +13,7 @@ const {
     UpdateFavoriteUsecase,
     ListFavoritesUsecase,
     ViewFavoriteUsecase,
+    ManagerProductFavoriteUsecase,
 } = require('../../../usecases/favorites');
 
 const { FavoritesRepository } = require('../../../infra/db/repositories');
@@ -37,6 +39,10 @@ class FavoritesControllerFactory {
 
         this.viewFavoriteController = new ViewFavoriteController(
             new ViewFavoriteUsecase(favoritesRepository)
+        );
+
+        this.managerProductFavoriteController = new ManagerProductFavoriteController(
+            new ManagerProductFavoriteUsecase(favoritesRepository)
         );
     }
 }
