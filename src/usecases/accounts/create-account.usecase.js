@@ -2,7 +2,7 @@ const { AccountsRepository } = require('../../infra/db/repositories/accounts.rep
 const { BcryptHashProvider } = require('../../infra/providers/hash');
 const { CreateAccountDto } = require('./dtos/create-account.dto');
 const { AppError } = require('../../main/errors');
-const { Account } = require('../../domain/account');
+const { v4 } = require('uuid');
 
 class CreateAccountUsecase {
     /**
@@ -24,21 +24,22 @@ class CreateAccountUsecase {
                 throw new AppError('Invalid dto', 412);
             }
 
-            const existsAccount = this._accountsRepository.findOneByEmail(
-                createAccountDto.email
-            );
-
-            if (existsAccount) {
-                throw new AppError('Account already exists');
-            }
-
             const { name, email, password } = createAccountDto;
+
+            const account = await this._accountsRepository.findOneByEmail(email);
+
+            if (account) {
+                throw new AppError('Account already exists', 409);
+            }
 
             const hashedPassword = await this._hashProvider.generate(password);
 
-            const account = new Account(name, email, hashedPassword);
-
-            await this._accountsRepository.create(account);
+            await this._accountsRepository.create({
+                id: v4(),
+                name,
+                email,
+                password: hashedPassword,
+            });
         } catch (error) {
             throw error;
         }

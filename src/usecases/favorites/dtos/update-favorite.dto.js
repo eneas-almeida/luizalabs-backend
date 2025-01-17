@@ -1,6 +1,8 @@
 class UpdateFavoriteDto {
-    constructor(body) {
+    constructor(body, id, accountId) {
         this.body = body;
+        this.id = id;
+        this.accountId = accountId;
     }
 
     get title() {

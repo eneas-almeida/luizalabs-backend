@@ -13,7 +13,7 @@ class CreateFavoriteController {
 
     async handle(req, res) {
         try {
-            const createFavoriteDto = new CreateFavoriteDto(req.body);
+            const createFavoriteDto = new CreateFavoriteDto(req.body, req.auth.id);
 
             await this._createFavoriteUsecase.execute(createFavoriteDto);
 
@@ -21,9 +21,11 @@ class CreateFavoriteController {
                 message: 'Favorite list created successfully',
             });
         } catch (error) {
-            const { message, statusCode } = error;
+            const { message, statusCode, metadata } = error;
 
-            return res.status(statusCode).json({ statusCode, message });
+            return res
+                .status(statusCode || 400)
+                .json({ statusCode: statusCode || 400, message, metadata });
         }
     }
 }

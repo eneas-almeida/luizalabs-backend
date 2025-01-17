@@ -22,7 +22,7 @@ class MainBuild {
     }
 
     async setDatabase() {
-        // await db.config();
+        await db.config();
         return this;
     }
 

@@ -1,4 +1,6 @@
-const { AccountsControllerFactory } = require('../factories/accounts-controller.factory');
+const {
+    AccountsControllerFactory,
+} = require('../factories/controllers/accounts-controller.factory');
 
 const { createAccountController, loginAccountController } =
     new AccountsControllerFactory();

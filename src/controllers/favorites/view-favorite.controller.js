@@ -12,15 +12,18 @@ class ViewFavoriteController {
         try {
             const { id } = req.params;
 
-            await this._viewFavoriteUsecase.execute(id);
+            const data = await this._viewFavoriteUsecase.execute(id, req.auth.id);
 
             return res.status(200).json({
                 message: 'Favorite viewed successfully',
+                data,
             });
         } catch (error) {
-            const { message, statusCode } = error;
+            const { message, statusCode, metadata } = error;
 
-            return res.status(statusCode).json({ statusCode, message });
+            return res
+                .status(statusCode || 400)
+                .json({ statusCode: statusCode || 400, message, metadata });
         }
     }
 }

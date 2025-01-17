@@ -1,6 +1,7 @@
 class CreateFavoriteDto {
-    constructor(body) {
+    constructor(body, acountId) {
         this.body = body;
+        this.accountId = acountId;
     }
 
     get title() {
@@ -16,7 +17,7 @@ class CreateFavoriteDto {
             return false;
         }
 
-        if (!this.body.title || !this.body.description) {
+        if (!this.body.title || !this.body.description || !this.accountId) {
             return false;
         }
 

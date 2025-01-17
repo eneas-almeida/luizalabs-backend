@@ -1,11 +1,12 @@
-const { Account } = require('../../../domain/account');
+const { AccountsModelSchema } = require('../schemas');
 
 class AccountsRepository {
-    /**
-     * @param {Account} account
-     */
-    async create(account) {
-        return account;
+    async create(doc) {
+        try {
+            return AccountsModelSchema.create(doc);
+        } catch (error) {
+            throw error;
+        }
     }
 
     /**
@@ -13,7 +14,11 @@ class AccountsRepository {
      * @returns {Promise<Account>}
      */
     async findOneByEmail(email) {
-        return false;
+        try {
+            return AccountsModelSchema.findOne({ email });
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

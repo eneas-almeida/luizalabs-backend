@@ -8,6 +8,7 @@ module.exports = async (err, req, res, _next) => {
         return res.status(err.statusCode).json({
             statusCode: err.statusCode,
             message: err.message,
+            metadata: err.metadata,
         });
     }
 
