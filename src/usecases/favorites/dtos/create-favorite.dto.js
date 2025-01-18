@@ -1,7 +1,11 @@
 class CreateFavoriteDto {
-    constructor(body, acountId) {
+    constructor(body, accountId) {
         this.body = body;
-        this.accountId = acountId;
+        this.accountId = accountId;
+    }
+
+    get id() {
+        return this.body.id;
     }
 
     get title() {

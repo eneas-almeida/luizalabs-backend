@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-class BcryptHashProvider {
+class CryptHashMockProvider {
     async generate(value) {
         return bcrypt.hash(value, 8);
     }
@@ -10,4 +10,4 @@ class BcryptHashProvider {
     }
 }
 
-module.exports = { BcryptHashProvider };
+module.exports = { CryptHashMockProvider };

@@ -3,6 +3,10 @@ class CreateAccountDto {
         this.body = body;
     }
 
+    get id() {
+        return this.body.id;
+    }
+
     get name() {
         return this.body.name;
     }

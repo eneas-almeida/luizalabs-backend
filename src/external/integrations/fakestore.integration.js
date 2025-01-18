@@ -1,6 +1,6 @@
-const { AxiosHttpClientProvider } = require('../../../infra/providers/http');
+const { AxiosHttpClientProvider } = require('../../infra/providers/http');
 
-class FakestoreProductIntegration {
+class FakestoreIntegration {
     /**
      * @param {AxiosHttpClientProvider} httpClient
      */
@@ -18,4 +18,4 @@ class FakestoreProductIntegration {
     }
 }
 
-module.exports = { FakestoreProductIntegration };
+module.exports = { FakestoreIntegration };
