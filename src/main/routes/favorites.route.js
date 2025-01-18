@@ -45,7 +45,7 @@ module.exports = (router) => {
     );
 
     router.patch(
-        '/favorites/products',
+        '/favorites/manager',
         auth,
         managerProductFavoriteController.handle.bind(managerProductFavoriteController)
     );
