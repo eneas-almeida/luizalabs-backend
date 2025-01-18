@@ -6,6 +6,7 @@
     "author": "eneas <eneas.eng@yahoo.com>",
     "license": "MIT",
     "devDependencies": {
+        "@types/jest": "^29.5.14",
         "jest": "^29.7.0",
         "nodemon": "^3.1.9"
     },
@@ -26,6 +27,7 @@
         "youch": "^3.3.4"
     },
     "scripts": {
-        "dev": "set API_AMBIENT=development && nodemon --inspect ./src/app.js"
+        "dev": "set API_AMBIENT=development && nodemon --inspect ./src/app.js",
+        "test": "jest --detectOpenHandles --forceExit"
     }
 }

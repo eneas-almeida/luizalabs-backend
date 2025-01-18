@@ -16,13 +16,16 @@ const {
     ManagerProductFavoriteUsecase,
 } = require('../../../usecases/favorites');
 
+const { UUIDHashProvider } = require('../../../infra/providers/hash');
+const uniqueIdHashProvider = new UUIDHashProvider();
+
 const { FavoritesRepository } = require('../../../infra/db/repositories');
 const favoritesRepository = new FavoritesRepository();
 
 class FavoritesControllerFactory {
     constructor() {
         this.createFavoriteController = new CreateFavoriteController(
-            new CreateFavoriteUsecase(favoritesRepository)
+            new CreateFavoriteUsecase(favoritesRepository, uniqueIdHashProvider)
         );
 
         this.deleteFavoriteController = new DeleteFavoriteController(

@@ -1,8 +1,8 @@
-const { FakestoreProductIntegration } = require('../../external/integrations/products');
+const { FakestoreIntegration } = require('../../external/integrations');
 
 class ListProductsUsecase {
     /**
-     * @param {FakestoreProductIntegration} productsIntegrationAdapter
+     * @param {FakestoreIntegration} productsIntegrationAdapter
      */
     constructor(productsIntegrationAdapter) {
         this._productsIntegrationAdapter = productsIntegrationAdapter;
