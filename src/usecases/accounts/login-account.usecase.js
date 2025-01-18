@@ -7,12 +7,12 @@ const { AppError } = require('../../main/errors');
 class LoginAccountUsecase {
     /**
      * @param {AccountsRepository} accountsRepository
-     * @param {BcryptHashProvider} hashProvider
+     * @param {BcryptHashProvider} cryptHashProvider
      * @param {JwtTokenProvider} tokenProvider
      */
-    constructor(accountsRepository, hashProvider, tokenProvider) {
+    constructor(accountsRepository, cryptHashProvider, tokenProvider) {
         this._accountsRepository = accountsRepository;
-        this._hashProvider = hashProvider;
+        this._cryptHashProvider = cryptHashProvider;
         this._tokenProvider = tokenProvider;
     }
 
@@ -36,7 +36,7 @@ class LoginAccountUsecase {
                 });
             }
 
-            const isValidPassword = await this._hashProvider.compare(
+            const isValidPassword = await this._cryptHashProvider.compare(
                 password,
                 account.password
             );

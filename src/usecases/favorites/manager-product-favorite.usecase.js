@@ -39,7 +39,7 @@ class ManagerProductFavoriteUsecase {
 
             favorite.products.push(productId);
 
-            await favorite.save();
+            await this._favoritesRepository.update(favorite.id, favorite);
 
             return;
         }
@@ -55,7 +55,7 @@ class ManagerProductFavoriteUsecase {
                 (product) => product !== productId
             );
 
-            await favorite.save();
+            await this._favoritesRepository.update(favorite.id, favorite);
         }
     }
 }

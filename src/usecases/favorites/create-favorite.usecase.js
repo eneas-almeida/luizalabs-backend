@@ -1,14 +1,16 @@
 const { FavoritesRepository } = require('../../infra/db/repositories');
+const { UUIDHashProvider } = require('../../infra/providers/hash');
 const { CreateFavoriteDto } = require('./dtos/create-favorite.dto');
 const { AppError } = require('../../main/errors');
-const { v4 } = require('uuid');
 
 class CreateFavoriteUsecase {
     /**
      * @param {FavoritesRepository} favoritesRepository
+     * @param {UUIDHashProvider} uniqueIdHashProvider
      */
-    constructor(favoritesRepository) {
+    constructor(favoritesRepository, uniqueIdHashProvider) {
         this._favoritesRepository = favoritesRepository;
+        this._uniqueIdHashProvider = uniqueIdHashProvider;
     }
 
     /**
@@ -17,7 +19,7 @@ class CreateFavoriteUsecase {
      */
     async execute(createFavoriteDto) {
         try {
-            const { accountId, description, title } = createFavoriteDto;
+            const { id, accountId, description, title } = createFavoriteDto;
 
             const count = await this._favoritesRepository.count({ accountId });
 
@@ -27,8 +29,10 @@ class CreateFavoriteUsecase {
                 });
             }
 
+            const uniqueId = await this._uniqueIdHashProvider.generate(id);
+
             await this._favoritesRepository.create({
-                id: v4(),
+                id: uniqueId,
                 accountId,
                 description,
                 title,
