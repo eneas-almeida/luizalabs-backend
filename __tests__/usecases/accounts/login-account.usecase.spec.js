@@ -28,7 +28,8 @@ describe('LoginAccountUsecase', () => {
         createAccountUsecase = new CreateAccountUsecase(
             accountsMockRepository,
             cryptHashMockProvider,
-            uniqueIdHashMockProvider
+            uniqueIdHashMockProvider,
+            tokenMockProvider
         );
 
         // Usecase

@@ -6,6 +6,7 @@ const AccountsSchema = new mongoose.Schema(
         name: String,
         email: String,
         password: String,
+        role: { type: String, default: 'COMPANY' },
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
     },

@@ -4,12 +4,14 @@ const {
     CryptHashMockProvider,
     UniqueIdHashMockProvider,
 } = require('../../mocks/providers');
+const { TokenMockProvider } = require('../../mocks/providers');
 const { AccountsMockRepository } = require('../../mocks/repositories');
 
 let createAccountUsecase = null;
 let accountsMockRepository = null;
 let cryptHashMockProvider = null;
 let uniqueIdHashMockProvider = null;
+let tokenMockProvider = null;
 
 describe('CreateAccountUsecase', () => {
     beforeEach(() => {
@@ -17,12 +19,14 @@ describe('CreateAccountUsecase', () => {
         accountsMockRepository = new AccountsMockRepository();
         cryptHashMockProvider = new CryptHashMockProvider();
         uniqueIdHashMockProvider = new UniqueIdHashMockProvider();
+        tokenMockProvider = new TokenMockProvider();
 
         // Usecase
         createAccountUsecase = new CreateAccountUsecase(
             accountsMockRepository,
             cryptHashMockProvider,
-            uniqueIdHashMockProvider
+            uniqueIdHashMockProvider,
+            tokenMockProvider
         );
     });
 

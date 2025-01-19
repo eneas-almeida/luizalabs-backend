@@ -13,10 +13,11 @@ class CreateAccountController {
         try {
             const createAccountDto = new CreateAccountDto(req.body);
 
-            await this.createAccountUsecase.execute(createAccountDto);
+            const data = await this.createAccountUsecase.execute(createAccountDto);
 
             return res.status(201).json({
                 message: 'Account created successfully',
+                data,
             });
         } catch (error) {
             const { message, statusCode, metadata } = error;

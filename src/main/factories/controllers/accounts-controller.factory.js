@@ -23,7 +23,8 @@ class AccountsControllerFactory {
             new CreateAccountUsecase(
                 accountsRepository,
                 cryptHashProvider,
-                uniqueIdHashProvider
+                uniqueIdHashProvider,
+                tokenProvider
             )
         );
 
