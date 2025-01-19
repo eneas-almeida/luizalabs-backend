@@ -49,11 +49,16 @@ class LoginAccountUsecase {
 
             const tokenGenerated = await this._tokenProvider.generate({
                 id: account.id,
+                name: account.name,
                 email: account.email,
+                role: account.role,
             });
 
             return {
+                id: account.id,
+                name: account.name,
                 token: tokenGenerated,
+                role: account.role,
             };
         } catch (error) {
             throw error;

@@ -17,7 +17,7 @@ class LoginAccountController {
 
             return res.status(200).json({
                 message: 'Login successfully',
-                ...data,
+                data,
             });
         } catch (error) {
             const { message, statusCode, metadata } = error;
