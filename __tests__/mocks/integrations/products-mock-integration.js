@@ -19,6 +19,17 @@ class ProductsMockIntegration {
             },
         ];
     }
+
+    async getProductById(productId) {
+        return {
+            id: 'product-id-1',
+            title: 'Product A',
+            price: 10.0,
+            description: 'Description of product A',
+            category: 'category-1',
+            image: 'image-1',
+        };
+    }
 }
 
 module.exports = { ProductsMockIntegration };
