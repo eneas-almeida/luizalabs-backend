@@ -8,7 +8,13 @@ const {
     LoginAccountUsecase,
 } = require('../../../usecases/accounts');
 
-const { AccountsRepository } = require('../../../infra/db/repositories');
+const { CreateFavoriteUsecase } = require('../../../usecases/favorites');
+
+const {
+    AccountsRepository,
+    FavoritesRepository,
+} = require('../../../infra/db/repositories');
+
 const { BcryptHashProvider, UUIDHashProvider } = require('../../../infra/providers/hash');
 const { JwtTokenProvider } = require('../../../infra/providers/token');
 
@@ -25,7 +31,8 @@ class AccountsControllerFactory {
                 cryptHashProvider,
                 uniqueIdHashProvider,
                 tokenProvider
-            )
+            ),
+            new CreateFavoriteUsecase(new FavoritesRepository(), uniqueIdHashProvider)
         );
 
         this.loginAccountController = new LoginAccountController(

@@ -22,6 +22,15 @@ const uniqueIdHashProvider = new UUIDHashProvider();
 const { FavoritesRepository } = require('../../../infra/db/repositories');
 const favoritesRepository = new FavoritesRepository();
 
+const { ProductsIntegrationAdapter } = require('../../adapters/integrations');
+const { FakestoreIntegration } = require('../../../external/integrations');
+const {
+    AxiosHttpClientProvider,
+} = require('../../../infra/providers/http/axios-http-client.provider');
+const productsIntegrationAdapter = new ProductsIntegrationAdapter(
+    new FakestoreIntegration(new AxiosHttpClientProvider())
+);
+
 class FavoritesControllerFactory {
     constructor() {
         this.createFavoriteController = new CreateFavoriteController(
@@ -45,7 +54,10 @@ class FavoritesControllerFactory {
         );
 
         this.managerProductFavoriteController = new ManagerProductFavoriteController(
-            new ManagerProductFavoriteUsecase(favoritesRepository)
+            new ManagerProductFavoriteUsecase(
+                favoritesRepository,
+                productsIntegrationAdapter
+            )
         );
     }
 }

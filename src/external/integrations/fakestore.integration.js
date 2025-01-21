@@ -16,6 +16,18 @@ class FakestoreIntegration {
             throw new Error(error.message);
         }
     }
+
+    async getProductById(productId) {
+        try {
+            const res = await this._axiosRetry.get(
+                `https://fakestoreapi.com/products/${productId}`
+            );
+            console.log(res);
+            return res.data;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 }
 
 module.exports = { FakestoreIntegration };

@@ -1,15 +1,19 @@
 const { FavoritesRepository } = require('../../infra/db/repositories');
+const { FakestoreIntegration } = require('../../external/integrations');
 const { AppError } = require('../../main/errors');
 
 class ManagerProductFavoriteUsecase {
     /**
      * @param {FavoritesRepository} favoritesRepository
+     * @param {FakestoreIntegration} productsIntegrationAdapter
      */
-    constructor(favoritesRepository) {
+    constructor(favoritesRepository, productsIntegrationAdapter) {
         this._favoritesRepository = favoritesRepository;
+        this._productsIntegrationAdapter = productsIntegrationAdapter;
     }
 
     async execute(option, productId, favoriteId, accountId) {
+        console.log(favoriteId);
         const favorite = await this._favoritesRepository.findOne({ id: favoriteId });
 
         if (!favorite) {
@@ -31,13 +35,32 @@ class ManagerProductFavoriteUsecase {
                 });
             }
 
-            if (favorite.products.includes(productId)) {
+            const existsProductInFavoriteList = favorite.products.find(
+                (product) => product.id === productId
+            );
+
+            if (existsProductInFavoriteList) {
                 throw new AppError('Product already added in favorite', 400, {
                     error: 'ProductAlreadyAdded',
                 });
             }
 
-            favorite.products.push(productId);
+            const product = await this._productsIntegrationAdapter.getProductById(
+                productId
+            );
+
+            if (!product) {
+                throw new AppError('Product not found', 400, {
+                    error: 'ProductNotFoundFindById',
+                });
+            }
+
+            favorite.products.push({
+                id: productId,
+                title: product.title,
+                price: product.price,
+                image: product.image,
+            });
 
             await this._favoritesRepository.update(favorite.id, favorite);
 
@@ -45,14 +68,18 @@ class ManagerProductFavoriteUsecase {
         }
 
         if (option === 'sub') {
-            if (!favorite.products.includes(productId)) {
+            const findProductById = favorite.products.find(
+                (product) => product.id === productId
+            );
+
+            if (!findProductById) {
                 throw new AppError('Product not found in favorite', 400, {
                     error: 'ProductNotFound',
                 });
             }
 
             favorite.products = favorite.products.filter(
-                (product) => product !== productId
+                (product) => product.id !== productId
             );
 
             await this._favoritesRepository.update(favorite.id, favorite);

@@ -6,14 +6,14 @@ class LoginAccountController {
      * @param {LoginAccountUsecase} loginAccountUsecase
      */
     constructor(loginAccountUsecase) {
-        this.loginAccountUsecase = loginAccountUsecase;
+        this._loginAccountUsecase = loginAccountUsecase;
     }
 
     async handle(req, res) {
         try {
             const loginAccountDto = new LoginAccountDto(req.body);
 
-            const data = await this.loginAccountUsecase.execute(loginAccountDto);
+            const data = await this._loginAccountUsecase.execute(loginAccountDto);
 
             return res.status(200).json({
                 message: 'Login successfully',

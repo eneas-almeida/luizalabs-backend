@@ -63,6 +63,7 @@ class CreateAccountUsecase {
             });
 
             return {
+                id: uniqueId,
                 name,
                 email,
                 role,

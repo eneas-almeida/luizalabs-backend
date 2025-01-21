@@ -10,11 +10,11 @@ class ListProductsController {
 
     async handle(_req, res) {
         try {
-            const products = await this._listProductsUsecase.execute();
+            const data = await this._listProductsUsecase.execute();
 
             return res.status(200).json({
                 message: 'Products listed successfully',
-                products,
+                data,
             });
         } catch (error) {
             const { message, statusCode, metadata } = error;

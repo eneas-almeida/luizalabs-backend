@@ -13,6 +13,10 @@ class ProductsIntegrationAdapter {
     async getProducts() {
         return this._productsIntegration.getProducts();
     }
+
+    async getProductById(productId) {
+        return this._productsIntegration.getProductById(productId);
+    }
 }
 
 module.exports = { ProductsIntegrationAdapter };
