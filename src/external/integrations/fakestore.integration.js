@@ -22,7 +22,6 @@ class FakestoreIntegration {
             const res = await this._axiosRetry.get(
                 `https://fakestoreapi.com/products/${productId}`
             );
-            console.log(res);
             return res.data;
         } catch (error) {
             throw new Error(error.message);
