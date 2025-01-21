@@ -2,11 +2,13 @@ const { CreateFavoriteUsecase } = require('../../../src/usecases/favorites');
 const { ManagerProductFavoriteUsecase } = require('../../../src/usecases/favorites');
 const { CreateFavoriteDto } = require('../../../src/usecases/favorites/dtos');
 const { FavoritesMockRepository } = require('../../mocks/repositories');
+const { ProductsMockIntegration } = require('../../mocks/integrations');
 const { UniqueIdHashMockProvider } = require('../../mocks/providers');
 
 let createFavoriteUsecase = null;
 let managerProductFavoriteUsecase = null;
 let favoritesMockRepository = null;
+let productsMockIntegration = null;
 let uniqueIdHashMockProvider = null;
 
 describe('ManagerProductFavoriteUsecase', () => {
@@ -14,6 +16,7 @@ describe('ManagerProductFavoriteUsecase', () => {
         // Injections : Mocks
         favoritesMockRepository = new FavoritesMockRepository();
         uniqueIdHashMockProvider = new UniqueIdHashMockProvider();
+        productsMockIntegration = new ProductsMockIntegration();
 
         // Usecase
         createFavoriteUsecase = new CreateFavoriteUsecase(
@@ -22,7 +25,8 @@ describe('ManagerProductFavoriteUsecase', () => {
         );
 
         managerProductFavoriteUsecase = new ManagerProductFavoriteUsecase(
-            favoritesMockRepository
+            favoritesMockRepository,
+            productsMockIntegration
         );
     });
 

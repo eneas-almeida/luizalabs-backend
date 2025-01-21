@@ -1,6 +1,8 @@
+const { envs } = require('./envs');
+
 const config = (app) => {
-    app.listen(3000, () => {
-        console.log(`Escutando na porta 3000`);
+    app.listen(envs.api.port, () => {
+        console.log(`Escutando na porta ${envs.api.port}`);
     });
 };
 

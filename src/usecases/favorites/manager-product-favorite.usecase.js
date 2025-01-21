@@ -13,7 +13,6 @@ class ManagerProductFavoriteUsecase {
     }
 
     async execute(option, productId, favoriteId, accountId) {
-        console.log(favoriteId);
         const favorite = await this._favoritesRepository.findOne({ id: favoriteId });
 
         if (!favorite) {
