@@ -1,6 +1,6 @@
 # LuizaLabs - Backend
 
-> **Desafio Luizalabs** Backend.<br />
+> **Luizalabs** Backend.<br />
 
 <p align="center"><img src="./media/logos/luizalabs-logo.png" width="300"/></p>
 
