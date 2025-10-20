@@ -35,10 +35,16 @@ class CreateAccountUsecase {
 
             const { id, name, email, password } = createAccountDto;
 
-            const account = await this._accountsRepository.findOneByEmail(email);
+            const accountByEmail = await this._accountsRepository.findOneByEmail(email);
 
-            if (account) {
+            if (accountByEmail) {
                 throw new AppError('Account already exists', 409);
+            }
+
+            const accountByName = await this._accountsRepository.findOneByName(name);
+
+            if (accountByName) {
+                throw new AppError('Account with this name already exists', 409);
             }
 
             const cryptedPassword = await this._cryptHashProvider.generate(password);

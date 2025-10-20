@@ -20,6 +20,18 @@ class AccountsRepository {
             throw error;
         }
     }
+
+    /**
+     * @param {string} name
+     * @returns {Promise<Account>}
+     */
+    async findOneByName(name) {
+        try {
+            return AccountsModelSchema.findOne({ name });
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = { AccountsRepository };

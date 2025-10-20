@@ -10,6 +10,10 @@ class AccountsMockRepository {
     async findOneByEmail(email) {
         return this.accounts.find((account) => account.email === email);
     }
+
+    async findOneByName(name) {
+        return this.accounts.find((account) => account.name === name);
+    }
 }
 
 module.exports = { AccountsMockRepository };
